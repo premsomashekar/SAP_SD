@@ -1,0 +1,12 @@
+PROCEDURE "SAP_SD.SDI.STORED_PROCEDURES::GET_ORDER"( in im_vbeln NVARCHAR(10),
+                                                 out et_vbap "SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAP" )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   AS
+BEGIN
+  lt_vbak = select * from "SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAK" where VBELN = :im_vbeln;
+  
+  et_vbap = select * 
+            from "SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAP"
+            where VBELN in ( Select VBELN from :lt_vbak );
+END

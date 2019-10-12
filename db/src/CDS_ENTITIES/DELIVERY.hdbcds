@@ -1,0 +1,9 @@
+namespace SAP_SD.db."CDS_ENTITIES";
+
+context DELIVERY {
+
+    /*@@layout{"layoutInfo":{"x":-224,"y":-21.5}}*/
+    entity LIKP {
+        VBELN : String(10);
+    };
+};

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="SAP_SD.db.CALCULATION_VIEWS::GET_ORDER" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="GET_ORDER"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAK">
+    <resourceUri>SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAK</resourceUri>
+  </DataSource>
+  <DataSource id="SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAP">
+    <resourceUri>SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAP</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="VBELN"/>
+      <viewAttribute id="CUST"/>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="ERDAT"/>
+      <viewAttribute id="POSNR" aggregationType="sum"/>
+      <viewAttribute id="MATNR"/>
+      <viewAttribute id="QUAN"/>
+      <viewAttribute id="AMOUNT_1"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST" source="CUST"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+    </input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUAN" source="QUAN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT_1" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+    </input>
+    <joinAttribute name="VBELN"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="VBELN"/>
+      <viewAttribute id="CUST"/>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="ERDAT"/>
+    
+      <viewAttribute id="VBELN_1"/>
+      <viewAttribute id="CUST_1"/>
+      <viewAttribute id="AMOUNT_1"/>
+      <viewAttribute id="ERDAT_1"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAK">
+      <mapping xsi:type="Calculation:AttributeMapping" target="VBELN_1" source="VBELN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST_1" source="CUST"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT_1" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT_1" source="ERDAT"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <viewAttributes>
+      <viewAttribute id="POSNR"/>
+      <viewAttribute id="MATNR"/>
+      <viewAttribute id="QUAN"/>
+      <viewAttribute id="AMOUNT"/>
+    
+      <viewAttribute id="VBELN"/></viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SAP_SD.db.CDS_ENTITIES::ORDER_C.VBAP"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="VBELN" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VBELN"/>
+      <keyMapping columnObjectName="Join_1" columnName="VBELN"/>
+    </attribute>
+    <attribute id="CUST" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUST"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUST"/>
+    </attribute>
+    <attribute id="AMOUNT" order="3" semanticType="amount" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AMOUNT"/>
+      <keyMapping columnObjectName="Join_1" columnName="AMOUNT"/>
+    </attribute>
+    <attribute id="ERDAT" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ERDAT"/>
+      <keyMapping columnObjectName="Join_1" columnName="ERDAT"/>
+    </attribute>
+    <attribute id="MATNR" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MATNR"/>
+      <keyMapping columnObjectName="Join_1" columnName="MATNR"/>
+    </attribute>
+    <attribute id="QUAN" order="7" semanticType="quantity" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QUAN"/>
+      <keyMapping columnObjectName="Join_1" columnName="QUAN"/>
+    </attribute>
+    <attribute id="AMOUNT_ITEM" order="8" semanticType="amount" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AMOUNT_1"/>
+      <keyMapping columnObjectName="Join_1" columnName="AMOUNT_1"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="POSNR" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="POSNR"/>
+      <measureMapping columnObjectName="Join_1" columnName="POSNR"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="221" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
